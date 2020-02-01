@@ -1,10 +1,18 @@
 const express = require('express');
 const router = express.Router();
 const session=require('express-session');
+
+
+const NEUfix= require('../db/client').db('NEU_fix');
+const user =NEUfix.collection('user')
+
+
+
 //-----------登录-------------------------------------
 
 router.get('/signin',function(req,res){
   console.log('signin page')
+  res.render('signin')
 })
 
 router.post('/signin',function(req,res){    

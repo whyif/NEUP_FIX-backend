@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
+
+const NEUfix= require('../../db/client').db('NEU_fix');
+const mesg=NEUfix.collection('mesg')
+   
 router.get('/mesg/:applyid',function(req,res){      //查看所有评价      ????????只能查找一个评价，如何查看所有评价??????
     mesg.find({applyid:req.query.applyid}).toArray().then((result)=>{
         if (result==null){

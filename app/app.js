@@ -6,7 +6,6 @@ const ejs=require('ejs')
 const app = express()
 
 
-
 /*
 
 我自己添加了几个测试用的页面，在views文件夹
