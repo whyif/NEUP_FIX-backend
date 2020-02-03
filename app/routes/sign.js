@@ -6,7 +6,6 @@ const session=require('express-session');
 const NEUfix= require('../db/client').db('NEU_fix');
 const user =NEUfix.collection('user')
 
-//const user=require('../db/client').user;
 
 //-----------登录-------------------------------------
 
@@ -24,7 +23,7 @@ router.post('/signin',function(req,res){
           res.sendStatus(400).end()
           }else{
           req.session.username=req.body.username
-          res.redirect('/');
+          res.redirect('/home');
           }
       }
   })
@@ -32,7 +31,8 @@ router.post('/signin',function(req,res){
 
 
 // ------------注册------------------------------------------
-router.get('signup',function(req,res){
+router.get('/signup',function(req,res){
+    res.render('signup')
   console.log('signup page')
 })
 router.post('/signup',function(req,res){
