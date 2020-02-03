@@ -13,17 +13,4 @@ client.connect().then(()=>{
 })
 module.exports=client;
 
-/*
-var db = null;
-module.exports = {
-init: function () {
-if (db === null) {
-db = client.connect();
-if (!db) {
-console.log('err')
-}
-}
-return db;
-}
-};
-*/
+

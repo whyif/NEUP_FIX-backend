@@ -74,8 +74,8 @@ app.get('/home',function(req,res){
 */
 
 app.use('/',require('./routes/sign'))
-//app.use('/home',require('./routes/admin'))
-//app.use('/home',require('./routes/user'))
+app.use('/home',require('./routes/admin'))
+app.use('/home',require('./routes/user'))
 console.log('http://localhost:8080/home')
 
 
