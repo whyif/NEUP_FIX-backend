@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-const NEUfix= require('../../db/client.js/index.js').db('NEU_fix');
+const NEUfix= require('../../db/client.js').db('NEU_fix');
 const list=NEUfix.collection('list')
-
+//const list=require('../../db/client').list;
 
 
 router.get('/apply',function(req,res){

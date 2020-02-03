@@ -3,6 +3,8 @@ const router = express.Router();
 
 const NEUfix= require('../../db/client').db('NEU_fix');
 const announcement =NEUfix.collection('announcement')
+//const announcement=require('../../db/client').announcement;
+
 
 router.post('/announcement',function(req,res){     //发布公告
     announcement.insertOne({

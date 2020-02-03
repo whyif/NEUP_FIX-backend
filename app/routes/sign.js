@@ -6,7 +6,7 @@ const session=require('express-session');
 const NEUfix= require('../db/client').db('NEU_fix');
 const user =NEUfix.collection('user')
 
-
+//const user=require('../db/client').user;
 
 //-----------登录-------------------------------------
 
