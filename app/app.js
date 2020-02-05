@@ -13,17 +13,21 @@ const app = express()
       /  --- /home ---/apply        \
       |         | ---/info           }  user  //在router下的user.js 里面挂了user文件夹下的三个路由
       |         | ---/mesg          /
-                |
-                | ---/accept        \
-                | ---/announcement  }   admin   //在router下的admin.js 里面挂了admin文件夹下的三个路由
-                | ---/mesg          /
+      |         |
+      |         |---/accept        \
+      |         | ---/announcement  }   admin   //在router下的admin.js 里面挂了admin文件夹下的三个路由
+      |         | ---/mesg          /
       |
       |  ---/signin
       |  ---/signup
 
-      暂时只进行了语法上错误的排除，以及某些API的修改（已经联系前端）
+      以及某些API的修改（已经联系前端）
       修改了后端监听的端口：由3000 --> 8080
-      对应数据库还没有进行相应的调整，暂时搁置在db文件夹，今晚应该可以调整完毕。
+      session的使用，建立会话，打算对于每一个信息提交，信息查看的页面，先确认session状态，
+      对于已经登陆的用户不提供注册窗口，对于未登录的用户，无法查看个人信息以及无法 apply 和发布mesg
+      正在实现此功能，预计下一步，把注释完善，对于apply，和发布mesg部分进行测试完善（加入实验用的简陋的HTML测试）
+      不知道何时可以开始和前端来一次会和，预计在写完注释等之后。
+      
 */
 
 app.use(bodyParser.urlencoded({extended:true}))
@@ -51,6 +55,9 @@ app.all('/home/*',function(req,res){
     res.redirect('http://localhost:8080/signin')
   }
 });
+//对于跳转info界面，应该是这里有问题。路由挂载没有错，
+//仅仅是我的一个实验而已，不用在意
+
 
 app.get('/home',function(req,res){
   res.render('home')
