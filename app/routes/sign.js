@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const session=require('express-session');
+//const session=require('express-session');
 
 
 const NEUfix= require('../db/client').db('NEU_fix');
@@ -10,8 +10,13 @@ const user =NEUfix.collection('user')
 //-----------登录-------------------------------------
 
 router.get('/signin',function(req,res){
-  console.log('signin page')
-  res.render('signin')
+    if(req.session.username){
+        res.send(req.session.username+'you have signed in ')
+      }else{
+          console.log('please log')
+        res.render('signin')
+      }
+  
 })
 
 router.post('/signin',function(req,res){    
@@ -32,12 +37,25 @@ router.post('/signin',function(req,res){
 
 // ------------注册------------------------------------------
 router.get('/signup',function(req,res){
-    res.render('signup')
-  console.log('signup page')
+    if(req.session.username){
+        res.send(req.session.username+'you have sign in')
+      }else{
+          console.log('please log')
+        res.render('signup')
+        console.log('signup page')
+      }
+  
 })
 router.post('/signup',function(req,res){
+    let sinupData=req.body
+    var flag=true
+    for(let i in sinupData){
+        if(!sinupData[i]){
+            flag=false
+        }
+    }
 user.findOne({username:req.body.username}).then((result)=>{
-  if(result===null){
+  if(result===null&&flag){
       user.insertOne({
           username:req.body.username,
           password:req.body.password,
@@ -49,16 +67,19 @@ user.findOne({username:req.body.username}).then((result)=>{
           if(err!=null){
               res.status(400).end()
           }else{
-              res.status(200).end()
+              //res.status(200).end()
+              req.session.username=req.body.username
+              res.redirect('http://localhost:8080/home')
           }
       })
   }else{
-      res.status(405).end()
+      //res.status(405).end()
+      res.send('user existed or some null error')
   }
 })
 })
 
-router.put('/home/signup',function(req,res){    //修改个人信息
+router.put('/home/signup',function(req,res){    //修改个人信息,有待修改
 
 })
 

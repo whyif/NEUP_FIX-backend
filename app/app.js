@@ -45,16 +45,12 @@ app.set('views',path.join('views'))
 app.engine('html',ejs.renderFile)
 app.set('view engine','html');//渲染模板
 
-/*
-app.all('*',function(req,res){
-  if(req.session.username){
-    res.render('*',{username:req.session.username})
-  }else{
-    res.redirect('/signin')
+
+app.all('/home/*',function(req,res){
+  if(!req.session.username){
+    res.redirect('http://localhost:8080/signin')
   }
 });
-*/
-
 
 app.get('/home',function(req,res){
   res.render('home')
