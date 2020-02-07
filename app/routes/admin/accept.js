@@ -9,11 +9,21 @@ router.get('/accept',function(req,res){
     console.log('accept page')
 })
 
-router.put('/accept',function(req,res){    
-    list.updateOne({applyid:req.params.accept.applyid},{status:"预约成功"},function(err){
+router.post('/accept',function(req,res){    
+    list.updateOne({applyid:req.params.accept.applyid},{
+        $set:
+        {
+           accept:{
+           status:"已接受维修请求",
+           member:req.body.member,
+           confire_site:req.body.confire_site,
+           confire_time:req.body.confire_time
+        }
+    }
+    },function(err){
         if (err==null){res.sendStatus(200).end()}
         else{res.sendStatus(405).end()}
-    })             //!!!!!!!!!!!!可能存在隐形的问题，学习更新数据!!!!!!!!!!!!!!!!!!!!!!!
+    })             //暂时使用post请求，可改进
 })
 
 

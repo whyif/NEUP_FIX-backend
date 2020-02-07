@@ -11,7 +11,7 @@ router.get('/apply',function(req,res){
 })
 router.post('/apply',function(req,res){     //维修申请表                 
     list.insertOne({
-        username:"",    //？？？？？？？？？？？？？？从登录信息直接导入？？？？？？？？？？？？,便于查找
+        username:req.session.username,    
         apply:{
             device_type:req.body.device_type,
             device_model:req.body.device_model,
@@ -25,9 +25,9 @@ router.post('/apply',function(req,res){     //维修申请表
             applyid:"",        //系统自动分配唯一申请id
             status:"预约成功",
             description:req.body.description,
-            menber:"",
+            member:"",
             confire_site:"",
-            comfire_time:""
+            confire_time:""
         }
     },function(err){
         if (err!=null){res.sendStatus(400).end()}
@@ -48,7 +48,8 @@ router.get('/apply/:userid',function(req,res){       //查看个人预约
                     description:result.apply.description,
                     contact:result.apply.contact,
                     connecttime:result.apply.connecttime,
-                    site:result.apply.site
+                    site:result.apply.site,
+                    status:"被修改，待确认"       //要求修改后管理员重新确认
                 },
                 accept:{
                     applyid:result.accept.applyid,

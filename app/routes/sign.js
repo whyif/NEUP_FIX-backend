@@ -22,13 +22,14 @@ router.get('/signin',function(req,res){
 router.post('/signin',function(req,res){    
   user.findOne({username:req.body.username}).then((result) =>{   
       if(result===null){
-          res.sendStatus(405).end()
+          res.send('user cant be found')//res.sendStatus(405).end()
       }else {
           if(result.password!=req.body.password){
-          res.sendStatus(400).end()
+          res,send('wrong password')//res.sendStatus(400).end()
           }else{
-          req.session.username=req.body.username
-          res.redirect('/home');
+          //req.session.username=req.body.username
+          //res.redirect('/home');
+          res.send('log in successfully')
           }
       }
   })
