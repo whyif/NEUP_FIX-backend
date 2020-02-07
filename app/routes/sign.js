@@ -14,7 +14,6 @@ router.get('/signin',function(req,res){
     if(req.session.username){
         res.send(req.session.username+'you have signed in ')
       }else{
-          console.log('please log')
         res.render('signin')
       }
   

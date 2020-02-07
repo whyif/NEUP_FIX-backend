@@ -5,10 +5,9 @@ const NEUfix= require('../../db/client').db('NEU_fix');
 const user =NEUfix.collection('user')
 /*更新数据要提交到库，故还是要 连接数据库 */
 
-router.get('/info',function(req,res,next){
+router.get('/info',function(req,res){
   
   res.render('userInfo')
-  next()
 })
 /*get请求渲染页面，post时更新数据到数据库 */
 

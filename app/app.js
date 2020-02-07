@@ -53,6 +53,8 @@ app.set('view engine','html');//渲染模板
 app.all('/home/*',function(req,res,next){
   if(!req.session.username){
     res.redirect('/signin')
+  }else{
+    next()
   }
   
 });
