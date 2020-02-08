@@ -49,14 +49,16 @@ app.set('views',path.join('views'))
 app.engine('html',ejs.renderFile)
 app.set('view engine','html');//渲染模板
 
-
-app.all('/home/*',function(req,res){
+/*--保证进行/home下挂的路由的程序运行要在建立会话后，登陆完毕后的一段时间-- */
+app.all('/home/*',function(req,res,next){
   if(!req.session.username){
-    res.redirect('http://localhost:8080/signin')
+    res.redirect('/signin')
+  }else{
+    next()
   }
+  
 });
-//对于跳转info界面，应该是这里有问题。路由挂载没有错，
-//仅仅是我的一个实验而已，不用在意
+
 
 
 app.get('/home',function(req,res){
@@ -76,10 +78,18 @@ app.get('/home',function(req,res){
     }) 
 */
 
+
+
+/*
+挂三个路由
+从router根目录下下放了一级路由（请允许我这么说）
+
+*/
 app.use('/',require('./routes/sign'))
 app.use('/home',require('./routes/admin'))
 app.use('/home',require('./routes/user'))
-console.log('http://localhost:8080/home')
+console.log('http://localhost:8080/home') //这只是为了方便打印的一句话
 
 
-module.exports = app
+module.exports = app 
+//使得app能暴露，实际上是用www作为端口监听以及引入app进行调试等 /：我的理解能力仅此而已，也没有去具体查
