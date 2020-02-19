@@ -2,14 +2,11 @@
 const express = require('express');
 const router = express.Router();
 
-const NEUfix= require('../../db/client.js').db('myproject');
+const NEUfix= require('../../db/client.js').db('NEU_fix');
 const list=NEUfix.collection('list')
 
 console.log('router apply has loaded')
 
-/*router.get('/apply',function(req,res){     请教res.render??   @zwq 
-    res.render('apply page')
-})*/
 
 router.post('/',function(req,res){
     console.log(req.body)
@@ -17,13 +14,12 @@ router.post('/',function(req,res){
     var flag=true
 
     for(let i in Data){
-        if(!Data[i]){
+        if(!Data[i]||Data.username!==req.session.username){
             flag=false
         }
     }
     if(flag){
         list.insertOne({
-        //username:req.session.username,
         username:req.body.username,    
         apply:{
             device_type:req.body.device_type,
@@ -47,14 +43,11 @@ router.post('/',function(req,res){
                 res.send(err)//res.status(400).end()
             }else{
                 res.send('apply successfully')
-                //res.status(200).end()
-                //req.session.username=req.body.username
-                //res.redirect('/home')
-                //注册成功自动建立会话，并重定向到/home
+                
             }
         })
     }else{
-      //res.status(405).end()
+     
       res.send('user existed or some null error')
     }
     

@@ -5,11 +5,11 @@ var NEUfix= require('../../db/client').db('NEU_fix');
 var list=NEUfix.collection('list')
 //const list=require('../../db/client').list;
 
-router.get('/accept',function(req,res){
+router.get('/',function(req,res){
     console.log('accept page')
 })
 
-router.post('/accept',function(req,res){    
+router.post('/',function(req,res){    
     list.updateOne({applyid:req.params.accept.applyid},{
         $set:
         {

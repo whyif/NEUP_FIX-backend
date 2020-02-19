@@ -5,18 +5,17 @@ const user=NEUfix.collection('user')
 
 /*更新数据要提交到库，故还是要 连接数据库 */
 
-router.get('/info',function(req,res){
+router.get('/',function(req,res){
   user.findOne({userid:req.session.userid}).then((reslut)=>{
     if(reslut==null){res.sendStatus(405).end()}
     else{res.sendStatus(200).json(reslut).end()}
   })
-  console.log(result)
-  //res.send(req.session.username+'your page')
-  //res.render('userInfo')
+  
+  res.render('userInfo')
 })
 /*get请求渲染页面，post时更新数据到数据库 */
 
-router.post('/info',function(req,res){
+router.post('/',function(req,res){
       if(req.session.username){
         let upData=req.body
         let flag=true
