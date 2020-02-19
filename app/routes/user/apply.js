@@ -1,17 +1,30 @@
+//仅仅调试了请求写入数据库的部分
 const express = require('express');
 const router = express.Router();
 
-const NEUfix= require('../../db/client.js').db('NEU_fix');
+const NEUfix= require('../../db/client.js').db('myproject');
 const list=NEUfix.collection('list')
-//const list=require('../../db/client').list;
 
+console.log('router apply has loaded')
 
-router.get('/apply',function(req,res){
+/*router.get('/apply',function(req,res){     请教res.render??   @zwq 
     res.render('apply page')
-})
-router.post('/apply',function(req,res){     //维修申请表                 
-    list.insertOne({
-        username:req.session.username,    
+})*/
+
+router.post('/',function(req,res){
+    console.log(req.body)
+    let Data=req.body
+    var flag=true
+
+    for(let i in Data){
+        if(!Data[i]){
+            flag=false
+        }
+    }
+    if(flag){
+        list.insertOne({
+        //username:req.session.username,
+        username:req.body.username,    
         apply:{
             device_type:req.body.device_type,
             device_model:req.body.device_model,
@@ -24,18 +37,31 @@ router.post('/apply',function(req,res){     //维修申请表
         accept:{
             applyid:"",        //系统自动分配唯一申请id
             status:"预约成功",
-            description:req.body.description,
+            description:'',
             member:"",
             confire_site:"",
             confire_time:""
         }
-    },function(err){
-        if (err!=null){res.sendStatus(400).end()}
-        else{res.sendStatus(200).end()}
-    })
+        },function(err){
+            if(err!=null){
+                res.send(err)//res.status(400).end()
+            }else{
+                res.send('apply successfully')
+                //res.status(200).end()
+                //req.session.username=req.body.username
+                //res.redirect('/home')
+                //注册成功自动建立会话，并重定向到/home
+            }
+        })
+    }else{
+      //res.status(405).end()
+      res.send('user existed or some null error')
+    }
+    
 })
 
-router.get('/apply/:userid',function(req,res){       //查看个人预约
+
+router.get('/',function(req,res){       //查看个人预约
     list.find({username:req.query.username}).toArray().then((result)=>{
         if(result==null){
             res.status(400).end()
@@ -48,8 +74,7 @@ router.get('/apply/:userid',function(req,res){       //查看个人预约
                     description:result.apply.description,
                     contact:result.apply.contact,
                     connecttime:result.apply.connecttime,
-                    site:result.apply.site,
-                    status:"被修改，待确认"       //要求修改后管理员重新确认
+                    site:result.apply.site
                 },
                 accept:{
                     applyid:result.accept.applyid,
@@ -60,7 +85,7 @@ router.get('/apply/:userid',function(req,res){       //查看个人预约
                     comfire_time:result.accept.confire_time
                 }
             }
-            res.json(data).status(200).end()
+            console.log(data)//res.json(data).status(200).end()
         }
     })        
 })

@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const NEUfix= require('../../db/client').db('NEU_fix');
-const list=NEUfix.collection('list')
+var NEUfix= require('../../db/client').db('NEU_fix');
+var list=NEUfix.collection('list')
 //const list=require('../../db/client').list;
 
 router.get('/accept',function(req,res){

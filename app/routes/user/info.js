@@ -3,21 +3,16 @@ const router = express.Router();
 const NEUfix=require('../../db/client').db('NEU_fix')
 const user=NEUfix.collection('user')
 
-const NEUfix= require('../../db/client').db('NEU_fix');
-const user =NEUfix.collection('user')
 /*更新数据要提交到库，故还是要 连接数据库 */
 
 router.get('/info',function(req,res){
-<<<<<<< HEAD
   user.findOne({userid:req.session.userid}).then((reslut)=>{
     if(reslut==null){res.sendStatus(405).end()}
     else{res.sendStatus(200).json(reslut).end()}
   })
+  console.log(result)
   //res.send(req.session.username+'your page')
-=======
-  
-  res.render('userInfo')
->>>>>>> 5f4dcd8e291be07bf1bc7c1fe6570ad15b544c03
+  //res.render('userInfo')
 })
 /*get请求渲染页面，post时更新数据到数据库 */
 
@@ -57,15 +52,10 @@ router.post('/info',function(req,res){
 对数据的更改，
 */
 
-<<<<<<< HEAD
 /*router.get('/info/:userid', function(req, res) {
   console.log('userInfo page')
   res.render('userInfo')
 })*/            //个人觉得只需要用session就够了，毕竟要先登录再看个人信息
-=======
-
-
-
 
 
 /*
@@ -75,7 +65,7 @@ router.get('/info/:userid', function(req, res) {
   res.render('userInfo')
 })
 */
->>>>>>> 5f4dcd8e291be07bf1bc7c1fe6570ad15b544c03
+
 
 //修改个人信息
 /*鉴于测试目的暂时将这些代码注释
@@ -88,9 +78,7 @@ router.put('/info/:userid',function(req,res){
       else{res.sendStatus(200).end()}
     }
   })
-=======
 
->>>>>>> 5f4dcd8e291be07bf1bc7c1fe6570ad15b544c03
   console.log('userinfo change')
 })
 

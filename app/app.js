@@ -50,14 +50,14 @@ app.engine('html',ejs.renderFile)
 app.set('view engine','html');//渲染模板
 
 /*--保证进行/home下挂的路由的程序运行要在建立会话后，登陆完毕后的一段时间-- */
-app.all('/home/*',function(req,res,next){
+/*app.all('/home/*',function(req,res,next){
   if(!req.session.username){
     res.redirect('/signin')
   }else{
-    next()
+    next()          
   }
   
-});
+});*/
 
 
 
@@ -85,11 +85,15 @@ app.get('/home',function(req,res){
 从router根目录下下放了一级路由（请允许我这么说）
 
 */
-app.use('/',require('./routes/sign'))
+
+app.use('/signin',require('./routes/signin'))
+app.use('/signup',require('./routes/signup'))     //将sign拆分，否则每一次请求都会require     原：app.use('/',require('./routes/sign'))   供参考
+app.use('/signout',require('./routes/signout'))
 app.use('/home',require('./routes/admin'))
 app.use('/home',require('./routes/user'))
+
 console.log('http://localhost:8080/home') //这只是为了方便打印的一句话
 
-
+app.listen(8080)
 module.exports = app 
 //使得app能暴露，实际上是用www作为端口监听以及引入app进行调试等 /：我的理解能力仅此而已，也没有去具体查
