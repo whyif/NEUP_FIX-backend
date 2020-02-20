@@ -7,17 +7,14 @@ const user =NEUfix.collection('user')
 
 console.log('router signup has loaded')
 
-/*router.get('/signup',function(req,res){
+router.get('/',function(req,res){
     if(req.session.username){
-        res.send(req.session.username+'you have sign in')
-        
+        res.send(req.session.username+'you have sign in')  
       }else{
-          console.log('please log')
-        res.render('signup')
-        console.log('signup page')
+        res.render('../views/signup')
       }
   
-})*/
+})
 /*
     上面的：get
     先验证会话，对于已经登陆的用户无法注册，
