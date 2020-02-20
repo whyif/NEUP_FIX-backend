@@ -1,8 +1,8 @@
 //session部分不可用，同signin.js。其他部分调试完毕，对接时删除注释即可
 const express = require('express');
 const router = express.Router();
-//const session=require('express-session');
-const NEUfix= require('../db/client').db('myproject'); //调试时使用myproject数据库，请根据本地的内容进行调整 @zwq
+const session=require('express-session');
+const NEUfix= require('../db/client').db('NEU_fix'); //调试时使用myproject数据库，请根据本地的内容进行调整 @zwq
 const user =NEUfix.collection('user')
 
 console.log('router signup has loaded')
@@ -44,22 +44,16 @@ router.post('/',function(req,res){
             qq:req.body.qq
         },function(err){
             if(err!=null){
-                res.send(err)//res.status(400).end()
+                res.send(err)
             }else{
+                req.session.username=req.body.username
                 res.send('signup successfully')
-                //res.status(200).end()
-                //req.session.username=req.body.username
-                //res.redirect('/home')
-                //注册成功自动建立会话，并重定向到/home
             }
         })
     }else{
-      //res.status(405).end()
       res.send('user existed or some null error')
     }
     })
 })
-//注销账号被拆分成单独的路由
-//修改用户信息我改到了info页面*/
 
 module.exports = router;

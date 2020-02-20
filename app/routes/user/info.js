@@ -8,6 +8,7 @@ const user=NEUfix.collection('user')
 router.get('/',function(req,res){
   res.render('../views/userinfo')
 })
+
 router.get('/:userid',function(req,res){
   user.findOne({userid:req.params.userid}).then((reslut)=>{
     if(reslut==null){
@@ -18,6 +19,7 @@ router.get('/:userid',function(req,res){
     }
   })
 })
+
 
 router.post('/',function(req,res){
     let upData=req.body
