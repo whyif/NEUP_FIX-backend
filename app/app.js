@@ -61,9 +61,9 @@ app.set('view engine','html');//渲染模板
 
 
 
-app.get('/home',function(req,res){
+/*app.get('/home',function(req,res){
   res.render('home')
-})
+})*/
 
 
 /*主页,返回所有公告
@@ -93,6 +93,10 @@ app.use('/home',require('./routes/admin'))
 app.use('/home',require('./routes/user'))
 
 console.log('http://localhost:8080/home') //这只是为了方便打印的一句话
+
+
+app.use(express.static('./views'))
+
 
 app.listen(8080)
 module.exports = app 
