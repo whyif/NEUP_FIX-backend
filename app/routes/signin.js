@@ -22,7 +22,7 @@ router.post('/',function(req,res){
           }else{
           req.session.username=req.body.username
           res.redirect('/home');
-          res.send('log in successfully '+req.session)  
+          res.send('log in successfully '+req.session.username)  
           }
       }
   })

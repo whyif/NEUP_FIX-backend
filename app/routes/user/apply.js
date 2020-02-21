@@ -55,9 +55,10 @@ router.post('/',function(req,res){
 
 
 router.get('/',function(req,res){       //查看个人预约
-    list.find({username:req.query.username}).toArray().then((result)=>{
-        if(result==null){
-            res.status(400).end()
+    //list.find({username:req.query.username}).toArray().then((result)=>{
+        if(!req.session.username){
+            //res.status(400).end()
+            res.render('apply')
         }else{
             let data ={
                 apply:{
@@ -81,9 +82,9 @@ router.get('/',function(req,res){       //查看个人预约
             console.log(data)//res.json(data).status(200).end()
         }
     })        
-})
+//})
 
-router.put('/apply/:userid',function(req,res){      //修改维修请求
+router.put('/:userid',function(req,res){      //修改维修请求
 list.updateOne({applyid:req.params.accept.applyid},{$set:req.body},function(err,result){
     if(err==null){res.sendStatus(200).end()}
     else{res.sendStatus(405).end()}
