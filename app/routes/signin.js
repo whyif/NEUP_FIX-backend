@@ -11,7 +11,7 @@ const user =NEUfix.collection('user')
 console.log('router signin has loaded')
 
 router.post('/',function(req,res){   
-  console.log(req.body) 
+  console.log(req.session) 
   user.findOne({username:req.body.username}).then((result) =>{
       console.log(result)   
       if(result===null){
@@ -27,13 +27,11 @@ router.post('/',function(req,res){
       }
   })
 })
-
 router.get('/',function(req,res){
     if(req.session.username){
         res.send(req.session.username+'you have signed in ')
       }else{
-        res.render('signin')
+        res.render('../views/signin')
       }
 })
-
-module.exports = router;
+module.exports = router

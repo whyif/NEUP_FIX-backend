@@ -88,5 +88,7 @@ app.use('/home',require('./routes/user'))
 console.log('http://localhost:8080/home') //这只是为了方便打印的一句话
 
 
+
+
 module.exports = app 
 //使得app能暴露，实际上是用www作为端口监听以及引入app进行调试等 /：我的理解能力仅此而已，也没有去具体查

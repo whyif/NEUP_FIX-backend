@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 
-const NEUfix= require('../../db/client').db('NEU_fix');
+const NEUfix= require('../../db/client').db('myproject');
 const mesg=NEUfix.collection('mesg')
 
 router.get('/:applyid',function(req,res){      //查看具体评价      ????????只能查找一个评价，如何查看所有评价??????
