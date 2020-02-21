@@ -74,13 +74,17 @@ router.get('/search/:username',function(req,res){       //查看个人预约
             res.send('no apply can be found')           
         }
     })        
-//})
+})
 
 router.post('/:applyid',function(req,res){      //修改维修请求
 list.updateOne({applyid:req.params.applyid},{$set:req.body},function(err,result){
-    if(err==null){res.sendStatus(200).end()}
-    else{res.sendStatus(405).end()}
+    if(err==null){
+        res.sendStatus(200).end()
+    }
+    else{
+        res.sendStatus(405).end()
+    }
 })
 })
 
-module.exports=router;
+module.exports=router
