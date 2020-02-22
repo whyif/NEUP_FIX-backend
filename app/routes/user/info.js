@@ -6,7 +6,7 @@ const NEUfix=require('../../db/client').db('myproject')
 const user=NEUfix.collection('user')
 
 router.get('/',function(req,res){
-  res.render('../views/userinfo')
+  res.render('userinfo')
 })
 
 router.get('/:userid',function(req,res){
@@ -19,7 +19,6 @@ router.get('/:userid',function(req,res){
     }
   })
 })
-
 
 router.post('/',function(req,res){
     let upData=req.body
