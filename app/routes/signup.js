@@ -1,24 +1,17 @@
-//session部分不可用，同signin.js。其他部分调试完毕，对接时删除注释即可
+//调试完成，对接部分待定
 const express = require('express');
 const router = express.Router();
 const session=require('express-session');
-const NEUfix= require('../db/client').db('NEU_fix'); //调试时使用myproject数据库，请根据本地的内容进行调整 @zwq
+const NEUfix= require('../db/client').db('myproject'); //调试时使用myproject数据库，请根据本地的内容进行调整 @zwq
 const user =NEUfix.collection('user')
 
 console.log('router signup has loaded')
 
 router.get('/',function(req,res){
-    if(req.session.username){
-        res.send(req.session.username+'you have sign in')  
-      }else{
-        res.render('../views/signup')
-      }
-  
+    res.render('../views/signup')
 })
 /*
-    上面的：get
-    先验证会话，对于已经登陆的用户无法注册，
-    没有登陆的，则渲染登陆界面 signup
+      登陆了就不能注册了吗？已修改    @zwq
 */
 
 
@@ -46,8 +39,7 @@ router.post('/',function(req,res){
             if(err!=null){
                 res.send(err)
             }else{
-                req.session.username=req.body.username
-                res.send('signup successfully')
+                res.send(req.body.username+' you have signed up successfully,now please signin')
             }
         })
     }else{

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-var NEUfix= require('../../db/client').db('NEU_fix');
+var NEUfix= require('../../db/client').db('mrproject');
 var list=NEUfix.collection('list')
 //const list=require('../../db/client').list;
 

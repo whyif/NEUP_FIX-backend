@@ -4,7 +4,7 @@ const dbname="myproject"
 var client =new MongoClient(mongo_url,{useNewUrlParser: true,useUnifiedTopology: true})
 
 client.connect().then(()=>{ 
-    console.log('success')
+    console.log('connect with db successfully')
 })
 module.exports=client;
 
