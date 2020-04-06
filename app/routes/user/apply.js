@@ -15,13 +15,13 @@ router.post('/',function(req,res){
     var flag=true
 
     for(let i in Data){
-        if(!Data[i]||Data.username!==req.session.username){
+        if(!Data[i]){
             flag=false
         }
     }
     if(flag){
         list.insertOne({
-        username:req.body.username,    
+        username:req.session.username,    
         apply:{
             device_type:req.body.device_type,
             device_model:req.body.device_model,
@@ -54,7 +54,12 @@ router.post('/',function(req,res){
     
 })
 router.get('/',function(req,res,next){
-    res.render('../views/apply')
+    if(req.session.username){
+    res.render('../views/apply',{
+        name:req.session.username
+    })
+    }
+    else{res.send("please sign in first")}
 })
 
 router.get('/search/:username',function(req,res){       //查看个人预约

@@ -4,11 +4,20 @@ const router = express.Router();
 
 const NEUfix= require('../../db/client').db('myproject');
 const mesg=NEUfix.collection('mesg')
+const list=NEUfix.collection('list')
 
-router.get('/:applyid',function(req,res){      //查看具体评价      ????????只能查找一个评价，如何查看所有评价??????
-    mesg.find({applyid:req.query.applyid}).toArray().then((result)=>{
+router.get('/',function(req,res){
+    list.find({username:req.session.username}).toArray().then((result)=>{
+        //console.log(result)
+        res.render('mesg',{data:result})
+    })
+    
+})
+
+router.get('/:applyid',function(req,res){      //查看具体评价      !!!!!!!!!!!!!!!4.6号因失误被修改，记得改回来!!!!!!!!!!!!!!!!!!!!
+    mesg.find({_id:req.query.applyid}).toArray().then((result)=>{
         if (result==null){
-            res.status(400).end()
+            res.send("")
         }else{
             let data={
                 username:result.username,
@@ -24,8 +33,8 @@ router.get('/:applyid',function(req,res){      //查看具体评价      ???????
 router.post('/',function(req,res){     //写评价
     mesg.insertOne({
         time:new Date(),
-        username:req.session.username, //！！！！！！！！！！！后端自动记录，需要修改！！！！！！！！！  
-        userid:req.session.userid,
+        username:req.session.username,  
+        userid:req.session.userid,    //session需要修改，因为当前版本session不含userid
         content:req.body.content, 
         applyid:"",    //后端自动记录
         mesgid:""   

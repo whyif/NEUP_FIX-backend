@@ -1,0 +1,31 @@
+
+<html>
+<body>
+
+<img src="http://localhost:8080/images/neu.png" width="300" height="100">
+<h1>维修记录</h1>
+
+<%if(data.length!=0){%>
+   <% data.forEach(function(data){%>
+       维修ID：<%- JSON.stringify(data._id) %><br>
+       用户名：<%- JSON.stringify(data.username) %><br>
+       装置类型：<%- JSON.stringify(data.apply.device_type) %><br>
+       装置型号：<%- JSON.stringify(data.apply.device_model) %><br>
+       描述：<%- JSON.stringify(data.apply.description) %><br>
+       联系方式：<%- JSON.stringify(data.apply.contact) %><br>
+       预约时间：<%- JSON.stringify(data.apply.time) %><br>
+       修理时间：<%- JSON.stringify(data.apply.connecttime) %><br>
+       地点：<%- JSON.stringify(data.apply.site) %><br>
+       状态：<%- JSON.stringify(data.accept.status) %><br>
+       <a href="localhost:8080/home/mesg/:"+data._id>我要评价</a><br>
+       <br>
+   <%})%>
+<%}else{%>
+   <p>怎么找也没有啊啊啊啊</p>
+   <img src="http://localhost:8080/images/1.jpg">
+<%}%>
+
+</form>
+
+
+</body>
